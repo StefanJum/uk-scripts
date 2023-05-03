@@ -73,6 +73,12 @@ for script in $(find "../make-based/" -type d -name "app*"); do
 	pushd "$script" > /dev/null || exit 1
 
 	app=$(echo "$script" | cut -d'-' -f3-)
+
+	if [[ "$app" = "elfloader" ]]; then
+		popd > /dev/null || exit 1
+		continue
+	fi
+
 	echo -n "Building $app... "
 	/bin/bash "do.sh" clean &> /dev/null
 	/bin/bash "do.sh" setup &> /dev/null || exit 1
